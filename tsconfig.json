@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "allowUnUsedLabels": false,
+    "lib":["DOM", "ES6", "ES7"],
+    "declaration": false,
+    "module": "CommonJS",
+    "moduleResolution":"Node",
+    "allowJs": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "inlineSourceMap": true,
+    "noImplicitAny": false,
+    "pretty": true,
+    "outDir": "./build",
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "typeRoots": ["./node_modules/@types"]
+    
+  },
+  "exclude": ["node_modules"]
+}
