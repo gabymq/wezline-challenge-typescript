@@ -12,6 +12,7 @@
   "typescript.tsdk": "node_modules\\typrescript\\lib",
   "cSpell.ignoreWords": [
     "linebreak",
-    "parens"
-]
+    "parens",
+    "sadface"
+  ]
 }
