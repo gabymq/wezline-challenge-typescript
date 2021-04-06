@@ -1,6 +1,8 @@
-import { Selector } from 'testcafe';
+import { Selector, t } from 'testcafe';
 
 export class CartPage {
+  checkoutButton = Selector('#checkout');
+
   async getItemData(item: number) {
     const parentSelector = `.cart_item:nth-child(${item + 2})`;
     const name = await Selector(`${parentSelector} .inventory_item_name`)
@@ -15,5 +17,8 @@ export class CartPage {
       description,
       price,
     };
+  }
+  async clickCheckout() {
+    return t.click(this.checkoutButton);
   }
 }
