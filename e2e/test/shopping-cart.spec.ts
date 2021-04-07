@@ -140,9 +140,9 @@ test("Fill user's information", async t => {
   await cartPage.clickCheckout();
   await t.expect(await getWindowLocation()).eql(checkoutUrl);
 
-  await checkoutStpTwoPage.typeInFirstNameField(informationUser.firstName);
-  await checkoutStpTwoPage.typeInLastNameField(informationUser.lastName);
-  await checkoutStpTwoPage.typeInZipCodeField(informationUser.zipCode);
+  await checkoutStpOnePage.typeInFirstNameField(informationUser.firstName);
+  await checkoutStpOnePage.typeInLastNameField(informationUser.lastName);
+  await checkoutStpOnePage.typeInZipCodeField(informationUser.zipCode);
 
   await checkoutStpOnePage.clickContinueButton();
   await t.expect(await getWindowLocation()).eql(checkoutUrlTwo);
@@ -177,9 +177,9 @@ test('Final order items', async t => {
   await cartPage.clickCheckout();
   await t.expect(await getWindowLocation()).eql(checkoutUrl);
 
-  await checkoutStpTwoPage.typeInFirstNameField(informationUser.firstName);
-  await checkoutStpTwoPage.typeInLastNameField(informationUser.lastName);
-  await checkoutStpTwoPage.typeInZipCodeField(informationUser.zipCode);
+  await checkoutStpOnePage.typeInFirstNameField(informationUser.firstName);
+  await checkoutStpOnePage.typeInLastNameField(informationUser.lastName);
+  await checkoutStpOnePage.typeInZipCodeField(informationUser.zipCode);
 
   await checkoutStpOnePage.clickContinueButton();
   await t.expect(await getWindowLocation()).eql(checkoutUrlTwo);
@@ -194,7 +194,7 @@ test('Final order items', async t => {
   }
 });
 
-test.only('Complete a purchased', async t => {
+test('Complete a purchased', async t => {
   const itemNumbers = [3, 5, 6];
   const data = [];
 
@@ -223,9 +223,9 @@ test.only('Complete a purchased', async t => {
   await cartPage.clickCheckout();
   await t.expect(await getWindowLocation()).eql(checkoutUrl);
 
-  await checkoutStpTwoPage.typeInFirstNameField(informationUser.firstName);
-  await checkoutStpTwoPage.typeInLastNameField(informationUser.lastName);
-  await checkoutStpTwoPage.typeInZipCodeField(informationUser.zipCode);
+  await checkoutStpOnePage.typeInFirstNameField(informationUser.firstName);
+  await checkoutStpOnePage.typeInLastNameField(informationUser.lastName);
+  await checkoutStpOnePage.typeInZipCodeField(informationUser.zipCode);
 
   await checkoutStpOnePage.clickContinueButton();
   await t.expect(await getWindowLocation()).eql(checkoutUrlTwo);
@@ -239,5 +239,6 @@ test.only('Complete a purchased', async t => {
     await t.expect(itemData.price).contains(cartItemData.price);
   }
 
-  // await checkoutStpTwoPage.clickFinishButton();
+  await checkoutStpTwoPage.clickFinishButton();
+  await t.expect(getWindowLocation()).eql(checkoutUrlComplete);
 });
