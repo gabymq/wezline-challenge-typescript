@@ -186,10 +186,58 @@ test('Final order items', async t => {
 
   for (let index = 0; index < data.length; index++) {
     const itemData = data[index];
+    const cartItemData = await checkoutStpTwoPage.getItemData(index + 1);
+
+    await t.expect(itemData.name).eql(cartItemData.name);
+    await t.expect(itemData.description).eql(cartItemData.description);
+    await t.expect(itemData.price).contains(cartItemData.price);
+  }
+});
+
+test.only('Complete a purchased', async t => {
+  const itemNumbers = [3, 5, 6];
+  const data = [];
+
+  for await (const itemNumber of itemNumbers) {
+    const itemData = await inventoryPage.getItemData(itemNumber);
+
+    await inventoryPage.clickAddToCart(itemNumber);
+    data.push(itemData);
+  }
+
+  await t
+    .expect(await inventoryPage.getShoppingCartBadge())
+    .eql(`${itemNumbers.length}`);
+  await inventoryPage.clickInShoppingCartLInk();
+  await t.expect(await getWindowLocation()).eql(cartUrl);
+
+  for (let index = 0; index < data.length; index++) {
+    const itemData = data[index];
     const cartItemData = await cartPage.getItemData(index + 1);
 
     await t.expect(itemData.name).eql(cartItemData.name);
     await t.expect(itemData.description).eql(cartItemData.description);
     await t.expect(itemData.price).contains(cartItemData.price);
   }
+
+  await cartPage.clickCheckout();
+  await t.expect(await getWindowLocation()).eql(checkoutUrl);
+
+  await checkoutStpTwoPage.typeInFirstNameField(informationUser.firstName);
+  await checkoutStpTwoPage.typeInLastNameField(informationUser.lastName);
+  await checkoutStpTwoPage.typeInZipCodeField(informationUser.zipCode);
+
+  await checkoutStpOnePage.clickContinueButton();
+  await t.expect(await getWindowLocation()).eql(checkoutUrlTwo);
+
+  for (let index = 0; index < data.length; index++) {
+    const itemData = data[index];
+    const cartItemData = await checkoutStpTwoPage.getItemData(index + 1);
+
+    await t.expect(itemData.name).eql(cartItemData.name);
+    await t.expect(itemData.description).eql(cartItemData.description);
+    await t.expect(itemData.price).contains(cartItemData.price);
+  }
+
+  // await checkoutStpTwoPage.clickFinishButton();
 });

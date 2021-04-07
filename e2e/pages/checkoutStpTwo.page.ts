@@ -11,7 +11,7 @@ export class CheckoutStpTwo {
   }
 
   async getItemData(itemNumber: number) {
-    const parentSelector = `.inventory_item:nth-child(${itemNumber})`;
+    const parentSelector = `.cart_item:nth-child(${itemNumber + 2})`;
     const name = await Selector(`${parentSelector} .inventory_item_name`)
       .innerText;
     const description = await Selector(`${parentSelector} .inventory_item_desc`)
