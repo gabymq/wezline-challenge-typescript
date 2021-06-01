@@ -29,5 +29,8 @@
       "name": "Gabriela Moreno Quintana",
       "url": "https://github.com/gabymq"
     }
-  ]
+  ],
+  "dependencies": {
+    "generator-testcafe": "^1.0.2"
+  }
 }
